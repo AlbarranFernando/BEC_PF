@@ -1,22 +1,20 @@
-import {prod as prodBD } from '../rutas/Productos'
 import {intProd} from "./productos"
-interface intCarr {
+import fs from'fs';
+export interface intCarr {
     id: string;
-    timestammp:Date;
+    timestamp:Date;
     producto:intProd[];
  }  
+  
   class carrito {
       
  
-      constructor(public  carrito:intCarr,){
-         
-      }
+      constructor(public carrito:intCarr,){      }
 
       getProducts() {
-                  console.log("carrito.ts L16",carrito)
         let productoVista:any[] = []                 
         if(this.carrito) {productoVista = this.carrito.producto}///VER INTERFACE}
-        if(this.carrito && !this.carrito.producto.length) productoVista = [{error : "no hay productos cargados"}]
+        if(!this.carrito || !this.carrito.producto.length) productoVista = [{error : "no hay productos cargados"}]
          return productoVista;
      }
 
@@ -27,8 +25,20 @@ interface intCarr {
      }
 
      addProduct(id: string) {
+      ////////////////Archivo////////////
+      let prodi:any
+      try {
+         prodi = JSON.parse(fs.readFileSync('Productos.txt', 'utf8'))
+         } catch (err) {console.error(err) }
+        //////////////////////////////
+
+      let selProd = prodi.find((prod:any) => prod.id === id)
+     
+      //console.log("carrito.ts L37",id ,"filter", selProd)
+     
+      
      //   const producto:any = productos.findOneProduct(id)
-      //  this.carrito.producto.push(producto)
+        this.carrito.producto.push(selProd)
      }
 
      delProduct(id: string){
@@ -43,3 +53,4 @@ interface intCarr {
 
 
    export default carrito;
+   

@@ -13,14 +13,18 @@ interface intProd {
   class Productos {
  
       constructor(public productos:intProd[]){}
- 
+
+      public prodBD(){
+         return this.productos
+
+      }
+
+      
       addProduct(prod: intProd) {
-       //  console.log("productos.ts L18",prod);
-         
          const {nombre, descripcion, codigo, foto, precio, stock} = prod
          const id: string = (this.productos.length + 1 ).toString();
          const timestammp: Date = new Date();
-         //console.log("productos.ts L22",timestammp);
+         //console.log("productos.ts L29",timestammp);
          const producto = {
            id,
            timestammp,

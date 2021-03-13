@@ -1,13 +1,15 @@
 import express from 'express'
-import carrito from '../modelos/carrito';
+import carrito,{intCarr} from '../modelos/carrito';
+import {intProd} from '../modelos/productos';
 const router = express.Router()
  
 router.use(express.json())
- 
- //import Carrito from'../modelos/carrito'
- import {prod as prodBD } from './Productos'
- let as:any
- let prod = new carrito(as);
+
+let timestamp: Date = new Date();
+let id: string = timestamp.getTime().toString();
+let producto: intProd[]=[];
+let prica:intCarr = {id,timestamp, producto};
+ let prod = new carrito(prica);
  
  router.get('/', async (_req,res) => {
    res.status(200).json(prod.getProducts())
@@ -17,13 +19,14 @@ router.use(express.json())
    res.status(200).json(prod.findOneProduct(req.params.id))
  })
  
- router.post('/', async (req,res) => {
-   prod.addProduct(req.body)
+ router.post('/:id', async (req,res) => {
+   prod.addProduct(req.params.id)
    res.sendStatus(201)
  })
  
  router.delete('/:id',async (req,res) => {
    res.status(200).json(prod.delProduct(req.params.id))
  })
+ 
  
  module.exports = router
