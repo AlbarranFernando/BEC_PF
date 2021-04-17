@@ -1,5 +1,6 @@
-import {intProd} from "./productos"
+import {intProd} from "./Mproductos"
 import fs from'fs';
+import { timeStamp } from "node:console";
 export interface intCarr {
     id: string;
     timestamp:Date;
@@ -15,6 +16,8 @@ export interface intCarr {
         let productoVista:any[] = []                 
         if(this.carrito) {productoVista = this.carrito.producto}///VER INTERFACE}
         if(!this.carrito || !this.carrito.producto.length) productoVista = [{error : "no hay productos cargados"}]
+        console.log("carrito.ts L18",this.carrito.timestamp,"id carrito ", this.carrito.id);
+        
          return productoVista;
      }
 

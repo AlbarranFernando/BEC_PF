@@ -1,6 +1,6 @@
 import express from 'express'
-import carrito,{intCarr} from '../modelos/carrito';
-import {intProd} from '../modelos/productos';
+import carrito,{intCarr} from '../modelos/Mcarrito';
+import {intProd} from '../modelos/Mproductos';
 const router = express.Router()
  
 router.use(express.json())
