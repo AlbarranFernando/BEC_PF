@@ -13,7 +13,7 @@
 
   prodModel.find( { 
     nombre: req.query.nom? {$regex: req.query.nom ,$options:'i'} :{$regex: /./},
-    precio:{$lte: req.query.preh ? req.query.preh : 99999 , $gte: req.query.prel ? req.query.prel : 1.0e99  }
+    precio:{$lte: req.query.preh ? req.query.preh : 1.0e99 , $gte: req.query.prel ? req.query.prel : 0  }
   
   } ) 
  //  prodModel.find( { nombre: {$regex: req.query.nom ,$options:'i'},precio:{$lte:req.query.preh, $gte:req.query.prel }} ) 
