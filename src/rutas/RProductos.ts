@@ -10,7 +10,13 @@
 
  router.get('/', async (req,res) => {
 
-   prodModel.find( { nombre: {$regex: req.query.nom ,$options:'i'},precio:{$lte:req.query.preh, $gte:req.query.prel }} ) 
+
+  prodModel.find( { 
+    nombre: req.query.nom? {$regex: req.query.nom ,$options:'i'} :{$regex: /./},
+    precio:{$lte: req.query.preh ? req.query.preh : 99999 , $gte: req.query.prel ? req.query.prel : 1.0e99  }
+  
+  } ) 
+ //  prodModel.find( { nombre: {$regex: req.query.nom ,$options:'i'},precio:{$lte:req.query.preh, $gte:req.query.prel }} ) 
    .then( (sel:any) => {res.status(200).json(sel)})
    .catch( (err:any) => console.log(err))
   //  res.status(200).json(prod.getProducts(nom,preL,preH))
